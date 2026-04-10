@@ -15,6 +15,18 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddEndpointsApiExplorer();
 
+// 🔥 CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy
+            .AllowAnyOrigin() // Cambiar en productivo
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 // JWT
 var jwtKey = builder.Configuration["Jwt:Key"] 
     ?? throw new Exception("Jwt:Key no está configurado");
@@ -28,7 +40,7 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
-    options.RequireHttpsMetadata = true;
+    options.RequireHttpsMetadata = false; //Cambiar a true en productivo
     options.SaveToken = true;
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -49,6 +61,8 @@ if (app.Environment.IsDevelopment())
 {
    // app.MapOpenApi();
 }
+
+app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
 
