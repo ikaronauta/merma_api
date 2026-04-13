@@ -14,5 +14,7 @@ public class UserLoginDto
 
     public int rol { get; set; } = 0;
 
+    public string Nombre { get; set; } = string.Empty;
+
     public string Token { get; set; } = string.Empty;
 }

@@ -119,6 +119,7 @@ public class AuthController : ControllerBase
                 Ruta = user.Ruta,
                 estado = user.estado,
                 rol = user.rol,
+                Nombre = user.Nombre,
                 Token = tokenString
             });
             response.Message = "Inicio de sesión exitoso";

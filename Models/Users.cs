@@ -25,6 +25,9 @@ public class User
     [Required]
     public int rol { get; set; }
 
+    [Required]
+    public string Nombre { get; set; } = string.Empty;
+
     public ICollection<CoffeeStore> CoffeeStores { get; set; } = new List<CoffeeStore>();
 }
 
