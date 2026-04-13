@@ -1,7 +1,7 @@
 // Models/CoffeeStore.cs
 
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace Merma_API.Models;
 
@@ -28,5 +28,7 @@ public class CoffeeStore
     public string almacen { get; set; } = string.Empty;
 
     public User User { get; set; } = null!;
+
+    public ICollection<Menu> Menus { get; set; } = new List<Menu>();
 }
 

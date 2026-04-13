@@ -68,4 +68,62 @@ public class PreparedProductsController : ControllerBase
             });
         }
     }
+
+    // GET: /PreparedProducts/menus-coffee?idCoffee=1
+    [Authorize]
+    [HttpGet("menus-coffee")]
+    public async Task<ActionResult<ApiResponse<List<MenuDto>>>> GetMenus([FromQuery] int idTienda)
+    {
+        try
+        {
+            var menus = await _context.Menus
+                .Where(m => m.IdTienda == idTienda)
+                .Select(m => new MenuDto
+                {
+                    Id = m.Id,
+                    IdMenu = m.IdMenu,
+                    Codigo = m.Codigo,
+                    Nombre = m.Nombre,
+                    CodigoBarra = m.CodigoBarra,
+                    CodigoIntegracion = m.CodigoIntegracion,
+                    VisibleOnPos = m.VisibleOnPos,
+                    NombreCategoriamenu = m.NombreCategoriamenu,
+                    Descripcion = m.Descripcion ?? "",
+                    NombreProd = m.NombreProd,
+                    CantidadProd = m.CantidadProd,
+                    StatusProd = m.StatusProd,
+                    Unidad = m.Unidad,
+                    DescripcionProd = m.DescripcionProd,
+                    CodigoBarraAgrupacion = m.CodigoBarraAgrupacion,
+                    IdTienda = m.IdTienda,
+                    nombreTienda = m.nombreTienda
+                })
+                .ToListAsync();
+
+            //Prueba
+            //var data = await _context.Users
+            //    .Include(u => u.CoffeeStores)
+            //        .ThenInclude(cs => cs.Menus)
+            //    .ToListAsync();
+
+            var response = new ApiResponse<List<MenuDto>>
+            {
+                Status = "OK",
+                Data = menus,
+                Message = "Menus consultados con éxito"
+            };
+
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new ApiResponse<List<MenuDto>>
+            {
+                Status = "FAIL",
+                Data = new List<MenuDto>(),
+                Message = "Error al consultar los menus del coffee",
+                Error = ex.Message
+            });
+        }
+    }
 }
