@@ -16,6 +16,9 @@ public class AppDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<CoffeeStore> CoffeeStores { get; set; }
     public DbSet<Menu> Menus { get; set; }
+    public DbSet<ArregloModificador> ArregloModificadors { get; set; }
+    public DbSet<ModificadorCss> ModificadorCss { get; set; }
+    public DbSet<Merma> Mermas { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -59,6 +62,34 @@ public class AppDbContext : DbContext
 
             entity.Property(m => m.StatusProd) 
                 .HasConversion<string>(); // Convierte el enum Convierte el enum para que se pueda guardar como texto "Activo", "Inactivo" de lo contrario seria 0, 1
+        });
+
+       
+        modelBuilder.Entity<ArregloModificador>(entity =>
+        {
+            entity.ToTable("ArregloModificadors");
+
+            entity.HasKey(am => am.Id);
+
+            //entity.HasAlternateKey(u => u.Ruta);
+        });
+
+        modelBuilder.Entity<ModificadorCss>(entity =>
+        {
+            entity.ToTable("modificadorCss");
+
+            entity.HasKey(m => m.Id);
+
+            //entity.HasAlternateKey(u => u.Ruta);
+        });
+
+        modelBuilder.Entity<Merma>(entity =>
+        {
+            entity.ToTable("jefeInsertaMermas");
+
+            entity.HasKey(m => m.Id);
+
+            //entity.HasAlternateKey(u => u.Ruta);
         });
     }
 

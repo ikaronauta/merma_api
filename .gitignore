@@ -24,6 +24,7 @@ Thumbs.db
 
 # Configuración sensible
 appsettings.Development.json
-appsettings.json
-Migrations/
+
+# Uploads
+wwwroot\uploads\mermas\*
 
