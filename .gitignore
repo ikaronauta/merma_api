@@ -26,5 +26,5 @@ Thumbs.db
 appsettings.Development.json
 
 # Uploads
-wwwroot\uploads\mermas\*
+wwwroot\uploads\
 
